@@ -35,7 +35,7 @@ for center in df['center']:
     soup = BeautifulSoup(response.text, 'html.parser')
 
     # 最初の検索結果のURLを取得
-    div = soup.find('div', class_='kCrYT')
+    div = soup.find('div', class_='yuRUbf')
     if div is not None:
         a = div.find('a')
         if a is not None:
@@ -54,4 +54,7 @@ for center in df['center']:
 
 # URLのリストをCSVファイルに保存
 df['url'] = urls
-df.to_csv('/app/data/shopping_centers_with_urls.csv', encoding='utf-8', index=False)
+
+# UTF-8-SIG エンコーディングで CSV ファイルを保存
+# (Excel などで開く場合、BOM付きUTF-8を使用すると文字化けが解消されることがある)
+df.to_csv('/app/data/shopping_centers_with_urls.csv', encoding='utf-8-sig', index=False)
